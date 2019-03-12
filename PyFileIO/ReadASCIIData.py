@@ -26,7 +26,7 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
 	
 	'''
 	intset = '0,1,2,3,4,5,6,7,8,9'.split(',')
-	floatset = '0,1,2,3,4,5,6,7,8,9,.,-'.split(',')
+	floatset = '0,1,2,3,4,5,6,7,8,9,.,-,e'.split(',')
 	
 	#read the files into an array of strings
 	lines = ReadASCIIFile(fname)
@@ -83,7 +83,7 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
 			uniqchar = np.array(list(set(colchar)))
 			nchar = uniqchar.size
 			
-			if nchar > 12:
+			if nchar > 13:
 				#must not be a number, shall use string
 				tmp_dt = 'string'
 			else:
