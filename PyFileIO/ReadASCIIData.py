@@ -1,7 +1,8 @@
 import numpy as np
 from .ReadASCIIFile import ReadASCIIFile
 
-def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
+def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
+	Missing=None,FillValFloat=np.nan,FillValInt=9999999):
 	'''
 	This will attempt to read a formatted ASCII file into a 
 	numpy.recarray object.
@@ -26,7 +27,7 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
 	
 	'''
 	intset = '0,1,2,3,4,5,6,7,8,9'.split(',')
-	floatset = '0,1,2,3,4,5,6,7,8,9,.,-,e'.split(',')
+	floatset = '0,1,2,3,4,5,6,7,8,9,.,-,e,+'.split(',')
 	
 	#read the files into an array of strings
 	lines = ReadASCIIFile(fname)
@@ -57,7 +58,14 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
 		tmpreg[i,:ncol[i]] = tmp[i]
 		tmpreg[i,ncol[i]:] = ''
 	
-	
+	if not Missing is None:
+		if np.size(Missing) == 1:
+			bad = np.where(tmpreg == Missing)
+			tmpreg[bad] = ''
+		else:
+			for M in Missing:
+				bad = np.where(tmpreg == M)
+				tmpreg[bad] = ''	
 	
 	#sort the dtype out
 	if not dtype is None:
@@ -80,10 +88,11 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
 		for i in range(0,nc):
 			tmp_dt = 'int32'
 			colchar = ''.join(tmpreg[:,i])
+	
 			uniqchar = np.array(list(set(colchar)))
 			nchar = uniqchar.size
 			
-			if nchar > 13:
+			if nchar > 14:
 				#must not be a number, shall use string
 				tmp_dt = 'string'
 			else:
@@ -118,8 +127,15 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None):
 		if 'int' in dtype[i][1] or 'float' in dtype[i][1]:
 			bad = np.where(tmpreg[:,i] == '')[0]
 			tmpreg[bad,i] = '0'
+		if 'int' in dtype[i][1]:
+			fv = FillValInt
+		elif 'float' in dtype[i][1]:
+			fv = FillValFloat
+		else:
+			fv = None
 		out[dtype[i][0]] = tmpreg[:,i].astype(dtype[i][1])
-		
+		if not fv is None:
+			out[dtype[i][0]][bad] = fv
 	return out
 	
 		
