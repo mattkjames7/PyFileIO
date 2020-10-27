@@ -15,7 +15,12 @@ def LoadDict(Fname):
 		print('File not found')
 		return None
 	
-	f = open(Fname,'rb')
-	Obj = pickle.load(f)
-	f.close()
+	try:
+		f = open(Fname,'rb')
+		Obj = pickle.load(f)
+		f.close()
+	except:
+		f = open(Fname,'rb')
+		Obj = pickle.load(f,encoding='latin1')
+		f.close()		
 	return Obj
