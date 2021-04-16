@@ -10,3 +10,4 @@ try:
 	from RecarrayTools import ReadRecarray,SaveRecarray
 except:
 	pass
+from .RenamedUnpickler import RenamedLoad,RenamedLoads,RenamedUnpickler

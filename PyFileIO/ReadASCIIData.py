@@ -75,7 +75,16 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
 	else:
 		#get the dtype names
 		if Header:
+			#replace newlines with nothing and tabs with spaces
+			head = head.replace('\n','')
+			if not SplitChar == '\t':
+				head = head.replace('\t',' ')
 			names = head.split(SplitChar)
+			#remove spaces in names and '.' or ','
+			for i in range(0,len(names)):
+				names[i] = names[i].replace(' ','')
+				names[i] = names[i].replace('.','')
+				names[i] = names[i].replace(',','')
 		else:
 			names = []
 			order = '{:d}'.format(np.int32((np.log10(nc)+1)//1))
