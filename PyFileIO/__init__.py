@@ -1,3 +1,6 @@
+__version__ = '0.0.4'
+
+
 from .FileIO import ArrayToFile,ArrayFromFile,ScalarToFile,ScalarFromFile,StringsToFile,StringsFromFile,ListArrayToFile,ListArrayFromFile
 from .FileSearch import FileSearch
 from .LoadDict import LoadDict
