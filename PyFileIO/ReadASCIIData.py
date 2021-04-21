@@ -2,7 +2,7 @@ import numpy as np
 from .ReadASCIIFile import ReadASCIIFile
 
 def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
-	Missing=None,FillValFloat=np.nan,FillValInt=9999999):
+	Missing=None,FillValFloat=np.nan,FillValInt=9999999,RemoveChar=None):
 	'''
 	This will attempt to read a formatted ASCII file into a 
 	numpy.recarray object.
@@ -21,6 +21,9 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
 			space or tab, set this variable to a string with the 
 			substring which splits the values in one row of data (e.g. 
 			SplitChar=',' for a .csv file, typically)
+		RemoveChar: None
+			If this is set to a string, each character in this string
+			will be removed from the text prior to processing.
 			
 	Returns:
 		numpy.recarray object
@@ -40,6 +43,13 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
 	if Header:
 		head = lines[0]
 		lines = lines[1:]
+		
+	#strip away some characters
+	if isinstance(RemoveChar,str):
+		chars = [l for l in RemoveChar]
+		for i in range(0,lines.size):
+			for c in chars:
+				lines[i] = lines[i].replace(c,'')
 	
 	#get data dimensions (lines and columns)
 	nl = np.size(lines)
