@@ -1,16 +1,15 @@
-import pickle
+from .SaveObject import SaveObject
 
 def SaveDict(Obj,Fname):
 	'''
-	This function saves the contents of a python dict object into a 
+	This function saves the contents of a python object into a 
 	binary file using pickle.
 	
 	Inputs:
-		Obj: python dict object
+		Obj: python object
 		Fname: path to output file.
 	
 	'''
-	f = open(Fname,'wb')
-	pickle.dump(Obj,f,pickle.HIGHEST_PROTOCOL)
-	f.close()
+	print('Depreciation warning: SaveDict will be removed in the next version, use SaveObject instead')	
+	SaveObject(Obj,Fname)
 	

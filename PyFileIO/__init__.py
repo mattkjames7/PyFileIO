@@ -5,6 +5,8 @@ from .FileIO import ArrayToFile,ArrayFromFile,ScalarToFile,ScalarFromFile,String
 from .FileSearch import FileSearch
 from .LoadDict import LoadDict
 from .SaveDict import SaveDict
+from .LoadObject import LoadObject
+from .SaveObject import SaveObject
 from .ReadASCIIData import ReadASCIIData
 from .ReadASCIIFile import ReadASCIIFile
 from .WriteASCIIFile import WriteASCIIFile

@@ -1,26 +1,14 @@
-import os
-import pickle
+from .LoadObject import LoadObject
 
 def LoadDict(Fname):
 	'''
-	Loads a python dict object from a file.
+	Loads a python object from a file.
 	
 	Inputs:
 		Fname: file name and path.
 		
 	Output:
-		python dict object.
+		python object.
 	'''
-	if not os.path.isfile(Fname):
-		print('File not found')
-		return None
-	
-	try:
-		f = open(Fname,'rb')
-		Obj = pickle.load(f)
-		f.close()
-	except:
-		f = open(Fname,'rb')
-		Obj = pickle.load(f,encoding='latin1')
-		f.close()		
-	return Obj
+	print('Depreciation warning: LoadDict will be removed in the next version, use LoadObject instead')
+	return LoadObject(Fname)
