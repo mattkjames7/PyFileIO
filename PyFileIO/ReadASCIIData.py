@@ -8,7 +8,8 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
 	numpy.recarray object.
 	
 	Inputs:
-		fname: name and path of file to read
+		fname: name and path of file to read, or a list of strings to be 
+		treated as a file.
 		Header: Tells the routine to use the first line (after skipping)
 			to get the column names
 		SkipLines: Tels the routine to skip the first few lines before
@@ -33,7 +34,12 @@ def ReadASCIIData(fname,Header=True,SkipLines=0,dtype=None,SplitChar=None,
 	floatset = '0,1,2,3,4,5,6,7,8,9,.,-,e,+'.split(',')
 	
 	#read the files into an array of strings
-	lines = ReadASCIIFile(fname)
+	if isinstance(fname,np.ndarray):
+		lines = fname
+	elif isinstance(fname,list):
+		lines = np.array(fname)
+	else:
+		lines = ReadASCIIFile(fname)
 	
 	#skip any lines that may not have any data
 	if SkipLines > 0:
