@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 
 def ArrayToFile(x,dtype,f):
 	'''
@@ -150,3 +151,10 @@ def ListArrayFromFile(dtype,f):
 	for i in range(0,l):
 		x.append(ArrayFromFile(dtype,f))
 	return x
+
+
+def ObjectToFile(x,f):
+	pickle.dump(x,f,pickle.HIGHEST_PROTOCOL)
+	
+def ObjectFromFile(f):
+	return pickle.load(f)

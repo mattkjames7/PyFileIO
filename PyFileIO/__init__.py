@@ -1,7 +1,7 @@
 __version__ = '0.0.5'
 
 
-from .FileIO import ArrayToFile,ArrayFromFile,ScalarToFile,ScalarFromFile,StringsToFile,StringsFromFile,ListArrayToFile,ListArrayFromFile
+from .FileIO import ArrayToFile,ArrayFromFile,ScalarToFile,ScalarFromFile,StringsToFile,StringsFromFile,ListArrayToFile,ListArrayFromFile,ObjectToFile,ObjectFromFile
 from .FileSearch import FileSearch
 from .LoadDict import LoadDict
 from .SaveDict import SaveDict
